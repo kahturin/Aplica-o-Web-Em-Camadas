@@ -11,6 +11,10 @@ class Funcionario extends Model
 
     protected $fillable = ['id', 'nome', 'endereco', 'email', 'telefone'];
     protected $table = 'Funcionario';
+
+    public function cliente(){
+        return $this->belongsTo(Vendas::class, 'idCliente');
+    }
 /*
  * é possível mudar a primary key assim:
  *  protected $primaryKey = 'nomeDaPK'
@@ -21,5 +25,5 @@ class Funcionario extends Model
  *  para tirar os campos timestamps:
  *  public $timestamps = false;
  */
-    
+
 }

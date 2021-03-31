@@ -11,4 +11,8 @@ class Vendas extends Model
 
     protected $fillable = ['id', 'idCliente', 'idFuncionario', 'dataDaVenda', 'valorDaVenda'];
     protected $table ='Vendas';
+
+    public function cliente(){
+        return $this->belongsTo(Clientes::class, 'idCliente');
+    }
 }
