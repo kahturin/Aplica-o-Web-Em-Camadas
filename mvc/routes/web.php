@@ -17,22 +17,23 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/avisos', function () {
-    return view('avisos',
-    ['nome' => 'karina',
-    'mostrar' => true,
-    'avisos' => [['id' => 1,
-    'texto' => 'feriados agora'],
-    ['id' => 2, 'texto' => 'feriados semana que vem']]]);
+Route::get('/avisos', function(){
+        return view('avisos', array('nome' => 'Bono',
+        							'mostrar' => true,
+        							'avisos' => array(	[	'id' => 1,
+        													'texto' => 'Feriados agora'],
+        												[	'id' => 2,
+        													'texto' => 'Feriado semana que vem'])));
 });
 
-Route::get('/barbearia', function () {
-    return view('barbearia',
-    ['nome' => 'karina',
-    'mostrar' => true,
-    'produtos' => [['id' => 1,
-    'texto' => 'Na tesoura ou máquina, como preferir'],
-    ['id' => 2, 'texto' => 'Corte e desenho profissional de barba'],
-    ['id' => 3, 'texto' => 'Pacote completo de cabelo e barba']]]);
-});
+Auth::routes();
 
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::group(['prefix' => 'clientes'], function (){
+
+	//Controlando o acesso com o middleware auth
+Route::get('/listar',[App\Http\Controllers\ClientesController::class, 'listar'])->middleware('auth');
+
+Route::get('/vendo', [App\Http\Controllers\NaoAcreditoController::class, 'vendo'])->middleware('auth');
+});
