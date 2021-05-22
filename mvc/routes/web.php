@@ -49,3 +49,10 @@ Route::group(['middleware' => ['auth']], function(){
 	Route::resource('/roles',App\Http\Controllers\RoleController::class);
 });
 
+Route::get('/produto/novo', 'ProductsController@create');
+Route::post('/produto/novo', 'ProductsController@store')->name('registrar_produto');
+Route::get('/produto/ver/{id}', 'ProductsController@show');
+Route::get('/produto/editar/{id}', 'ProductsController@edit');
+Route::post('/produto/editar/{id}', 'ProductsController@update')->name('alterar_produto');
+Route::post('/produto/excluir/{id}', 'ProductsController@delete');
+Route::post('/produto/excluir/{id}', 'ProductsController@destroy')->name('excluir.produto');
