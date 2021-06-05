@@ -18,17 +18,22 @@
      return $request->user();
  });
 
+Route::post('login', [App\Http\Controllers\APIController::class, 'login']);
 
 Route::prefix('v1')->group(static function(){
+Route::get('logout', [App\Http\Controllers\APIController::class, 'logout']);
 
-	Route::get(	'funcionarios',
-					[App\Http\Controllers\FuncionarioController::class, 'index']);
-	Route::post( 'funcionarios',
-					[App\Http\Controllers\FuncionarioController::class, 'store']);
-	Route::delete( 'funcionarios/{id}',
-					[App\Http\Controllers\FuncionarioController::class, 'destroy']);
-	Route::get( 'funcionarios/{id}',
-					[App\Http\Controllers\FuncionarioController::class, 'show']);
-	Route::put( 'funcionarios/{id}',
-					[App\Http\Controllers\FuncionarioController::class, 'update']);
+Route::group(['middleware' => 'auth.jwt','prefix' => 'v1'], function(){
+
+ 	Route::get(	'funcionarios',
+ 					[App\Http\Controllers\FuncionarioController::class, 'index']);
+ 	Route::post( 'funcionarios',
+ 					[App\Http\Controllers\FuncionarioController::class, 'store']);
+ 	Route::delete( 'funcionarios/{id}',
+ 					[App\Http\Controllers\FuncionarioController::class, 'destroy']);
+ 	Route::get( 'funcionarios/{id}',
+ 					[App\Http\Controllers\FuncionarioController::class, 'show']);
+ 	Route::put( 'funcionarios/{id}',
+ 					[App\Http\Controllers\FuncionarioController::class, 'update']);
+});
 });
